@@ -1,0 +1,35 @@
+{
+  "name": "@repo/db",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./schema/enums": {
+      "types": "./src/schema/enums.ts",
+      "default": "./src/schema/enums.ts"
+    },
+    "./schema/business": {
+      "types": "./src/schema/business.ts",
+      "default": "./src/schema/business.ts"
+    },
+    "./schema/user": {
+      "types": "./src/schema/user.ts",
+      "default": "./src/schema/user.ts"
+    }
+  },
+  "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.1",
+    "postgres": "^3.4.7"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "drizzle-kit": "^0.31.5",
+    "typescript": "^5.9.2"
+  }
+}
