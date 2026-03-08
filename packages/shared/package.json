@@ -1,0 +1,39 @@
+{
+  "name": "@repo/shared",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./schemas/auth": {
+      "types": "./src/schemas/auth.ts",
+      "default": "./src/schemas/auth.ts"
+    },
+    "./types/auth": {
+      "types": "./src/types/auth.ts",
+      "default": "./src/types/auth.ts"
+    },
+    "./types/user": {
+      "types": "./src/types/user.ts",
+      "default": "./src/types/user.ts"
+    },
+    "./types/business": {
+      "types": "./src/types/business.ts",
+      "default": "./src/types/business.ts"
+    },
+    "./types/api-response": {
+      "types": "./src/types/api-response.ts",
+      "default": "./src/types/api-response.ts"
+    },
+    "./constants/error-codes": {
+      "types": "./src/constants/error-codes.ts",
+      "default": "./src/constants/error-codes.ts"
+    }
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
+  }
+}
