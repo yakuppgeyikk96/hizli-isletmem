@@ -1,39 +1,47 @@
-import { join } from 'node:path'
-import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload'
-import { FastifyPluginAsync, FastifyServerOptions } from 'fastify'
+import { join } from "node:path";
+import AutoLoad from "@fastify/autoload";
+import type { FastifyPluginAsync } from "fastify";
+import {
+  serializerCompiler,
+  validatorCompiler,
+} from "fastify-type-provider-zod";
+import { ERROR_CODES } from "@repo/shared/constants/error-codes";
+import type { ApiResponse } from "@repo/shared/types/api-response";
+import authRoutes from "./modules/auth/auth.route";
 
-export interface AppOptions extends FastifyServerOptions, Partial<AutoloadPluginOptions> {
+const app: FastifyPluginAsync = async (fastify): Promise<void> => {
+  fastify.setValidatorCompiler(validatorCompiler);
+  fastify.setSerializerCompiler(serializerCompiler);
 
-}
-// Pass --options via CLI arguments in command to enable these options.
-const options: AppOptions = {
-}
+  fastify.setErrorHandler((error: Error & { validation?: unknown; statusCode?: number }, _request, reply) => {
+    if (error.validation) {
+      const response: ApiResponse<never> = {
+        success: false,
+        error: {
+          code: ERROR_CODES.VALIDATION_ERROR,
+          message: error.message,
+        },
+      };
+      return reply.status(400).send(response);
+    }
 
-const app: FastifyPluginAsync<AppOptions> = async (
-  fastify,
-  opts
-): Promise<void> => {
-  // Place here your custom code!
+    fastify.log.error(error);
 
-  // Do not touch the following lines
+    const response: ApiResponse<never> = {
+      success: false,
+      error: {
+        code: ERROR_CODES.INTERNAL_ERROR,
+        message: "An unexpected error occurred.",
+      },
+    };
+    return reply.status(error.statusCode ?? 500).send(response);
+  });
 
-  // This loads all plugins defined in plugins
-  // those should be support plugins that are reused
-  // through your application
-  // eslint-disable-next-line no-void
   void fastify.register(AutoLoad, {
-    dir: join(__dirname, 'plugins'),
-    options: opts
-  })
+    dir: join(__dirname, "plugins"),
+  });
 
-  // This loads all plugins defined in routes
-  // define your routes in one of these
-  // eslint-disable-next-line no-void
-  void fastify.register(AutoLoad, {
-    dir: join(__dirname, 'routes'),
-    options: opts
-  })
-}
+  fastify.register(authRoutes, { prefix: "/api/v1/auth" });
+};
 
-export default app
-export { app, options }
+export default app;
