@@ -35,3 +35,20 @@ Represents a person who can log in to the dashboard. Every user belongs to a bus
 
 - Only business owners register through the signup page. This creates both a **Business** and a **User** (with `admin` role).
 - Staff members (waiter, cashier, manager) are added by the admin from the dashboard. They log in with credentials set by the admin.
+
+## Refresh Token
+
+Stores active refresh tokens for JWT authentication. Enables token invalidation on logout, token rotation on refresh, and forced session termination by admin.
+
+| Column    | Type      | Constraints              | Notes                                         |
+| --------- | --------- | ------------------------ | --------------------------------------------- |
+| id        | uuid      | PK                       |                                               |
+| userId    | uuid      | FK → users, CASCADE      | All tokens deleted when user is deleted        |
+| tokenId   | text      | unique, not null         | The `jti` claim from the JWT                  |
+| expiresAt | timestamp | not null                 | Token expiration time. Used for cleanup.       |
+| createdAt | timestamp | not null                 |                                               |
+
+### Indexes
+
+- `refresh_tokens_user_id_idx` — lookup tokens by user (logout all sessions, deactivate user)
+- `refresh_tokens_token_id_idx` — lookup token by `jti` (refresh flow validation)
