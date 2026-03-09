@@ -19,7 +19,6 @@ const app: FastifyPluginAsync = async (fastify): Promise<void> => {
         success: false,
         error: {
           code: ERROR_CODES.VALIDATION_ERROR,
-          message: error.message,
         },
       };
       return reply.status(400).send(response);
@@ -31,7 +30,6 @@ const app: FastifyPluginAsync = async (fastify): Promise<void> => {
       success: false,
       error: {
         code: ERROR_CODES.INTERNAL_ERROR,
-        message: "An unexpected error occurred.",
       },
     };
     return reply.status(error.statusCode ?? 500).send(response);

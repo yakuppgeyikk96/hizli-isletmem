@@ -26,7 +26,6 @@ export function buildAuthService({ authRepository, fastify }: AuthServiceDeps) {
           success: false as const,
           error: {
             code: ERROR_CODES.EMAIL_ALREADY_EXISTS,
-            message: "A user with this email already exists.",
           },
           statusCode: 409,
         };
@@ -69,7 +68,6 @@ export function buildAuthService({ authRepository, fastify }: AuthServiceDeps) {
           success: false as const,
           error: {
             code: ERROR_CODES.INVALID_CREDENTIALS,
-            message: "Invalid email or password.",
           },
           statusCode: 401,
         };
@@ -80,7 +78,6 @@ export function buildAuthService({ authRepository, fastify }: AuthServiceDeps) {
           success: false as const,
           error: {
             code: ERROR_CODES.USER_DEACTIVATED,
-            message: "This account has been deactivated.",
           },
           statusCode: 401,
         };
@@ -92,7 +89,6 @@ export function buildAuthService({ authRepository, fastify }: AuthServiceDeps) {
           success: false as const,
           error: {
             code: ERROR_CODES.INVALID_CREDENTIALS,
-            message: "Invalid email or password.",
           },
           statusCode: 401,
         };
@@ -132,7 +128,6 @@ export function buildAuthService({ authRepository, fastify }: AuthServiceDeps) {
           success: false as const,
           error: {
             code: ERROR_CODES.TOKEN_INVALID,
-            message: "Invalid or expired refresh token.",
           },
           statusCode: 401,
         };
@@ -144,7 +139,6 @@ export function buildAuthService({ authRepository, fastify }: AuthServiceDeps) {
           success: false as const,
           error: {
             code: ERROR_CODES.TOKEN_INVALID,
-            message: "Refresh token has been revoked.",
           },
           statusCode: 401,
         };
@@ -157,7 +151,6 @@ export function buildAuthService({ authRepository, fastify }: AuthServiceDeps) {
           success: false as const,
           error: {
             code: ERROR_CODES.USER_DEACTIVATED,
-            message: "This account has been deactivated.",
           },
           statusCode: 401,
         };

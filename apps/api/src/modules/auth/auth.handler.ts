@@ -92,7 +92,6 @@ export function buildAuthHandler({ authService }: AuthHandlerDeps) {
           success: false,
           error: {
             code: "TOKEN_INVALID",
-            message: "Refresh token is missing.",
           },
         };
         return reply.status(401).send(response);
