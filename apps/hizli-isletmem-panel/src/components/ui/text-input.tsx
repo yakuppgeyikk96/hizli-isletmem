@@ -4,12 +4,14 @@ import { cn } from "@/lib/utils";
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: ReactNode;
   label?: string;
+  error?: string;
   className?: string;
 }
 
 export function TextInput({
   icon,
   label,
+  error,
   id,
   className,
   ...props
@@ -35,17 +37,25 @@ export function TextInput({
         )}
         <input
           id={id}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${id}-error` : undefined}
           className={cn(
             "w-full rounded-lg border border-input bg-background px-4 py-3 text-base text-foreground",
             "placeholder:text-muted-foreground",
             "outline-none transition-colors",
             "focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-ring/30",
+            error && "border-red-500 focus-visible:border-red-500 focus-visible:ring-red-500/30",
             icon && "pl-12",
             className,
           )}
           {...props}
         />
       </div>
+      {error && (
+        <p id={`${id}-error`} role="alert" className="text-sm text-red-500">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
