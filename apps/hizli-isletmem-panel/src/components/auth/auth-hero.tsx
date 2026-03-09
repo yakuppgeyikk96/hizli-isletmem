@@ -10,8 +10,8 @@ export function AuthHero() {
         priority
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-      <div className="absolute bottom-16 left-10 right-10 text-center">
+      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
         <p className="text-4xl font-bold tracking-tight text-white xl:text-5xl">
           Hızlı İşletmem
         </p>
