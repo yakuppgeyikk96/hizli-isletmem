@@ -1,5 +1,5 @@
 import type { FastifyInstance } from "fastify";
-import { registerInputSchema } from "@repo/shared/schemas/auth";
+import { registerInputSchema, loginInputSchema } from "@repo/shared/schemas/auth";
 import { buildAuthRepository } from "./auth.repository";
 import { buildAuthService } from "./auth.service";
 import { buildAuthHandler } from "./auth.handler";
@@ -18,4 +18,18 @@ export default async function authRoutes(fastify: FastifyInstance) {
     },
     authHandler.register,
   );
+
+  fastify.post(
+    "/login",
+    {
+      schema: {
+        body: loginInputSchema,
+      },
+    },
+    authHandler.login,
+  );
+
+  fastify.post("/refresh", authHandler.refresh);
+
+  fastify.post("/logout", authHandler.logout);
 }

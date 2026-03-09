@@ -19,6 +19,26 @@ export function buildAuthRepository(db: PostgresJsDatabase) {
       return result[0] ?? null;
     },
 
+    async findUserById(id: string) {
+      const result = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, id))
+        .limit(1);
+
+      return result[0] ?? null;
+    },
+
+    async findBusinessById(id: string) {
+      const result = await db
+        .select()
+        .from(businesses)
+        .where(eq(businesses.id, id))
+        .limit(1);
+
+      return result[0] ?? null;
+    },
+
     async createBusinessAndUser(
       businessData: CreateBusinessData,
       userData: Omit<CreateUserData, "businessId">,
