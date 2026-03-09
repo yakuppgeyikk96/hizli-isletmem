@@ -1,19 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import { useForm, type AnyFieldApi } from "@tanstack/react-form";
+import { useTranslations } from "next-intl";
+import { useForm } from "@tanstack/react-form";
 import { loginInputSchema } from "@repo/shared/schemas/auth";
 import { Mail, LockKeyhole } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { TextInput } from "@/components/ui/text-input";
-
-function getFieldError(field: AnyFieldApi): string | undefined {
-  if (!field.state.meta.isTouched || field.state.meta.errors.length === 0) return undefined;
-  const first = field.state.meta.errors[0];
-  if (!first) return undefined;
-  return typeof first === "string" ? first : (first as { message?: string }).message;
-}
+import { getFieldError } from "@/lib/translate-zod-error";
 
 export function LoginForm() {
+  const t = useTranslations("auth");
+  const tValidation = useTranslations("validation");
+
   const form = useForm({
     defaultValues: {
       email: "",
@@ -30,9 +28,9 @@ export function LoginForm() {
   return (
     <div className="flex w-full max-w-md flex-col gap-8">
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-foreground">Giriş Yap</h2>
+        <h2 className="text-3xl font-bold text-foreground">{t("loginTitle")}</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Lütfen hesap bilgilerinizi girerek devam edin.
+          {t("loginSubtitle")}
         </p>
       </div>
 
@@ -50,14 +48,14 @@ export function LoginForm() {
               id="email"
               name="email"
               type="email"
-              label="E-posta"
-              placeholder="E-posta Adresiniz"
+              label={t("emailLabel")}
+              placeholder={t("emailPlaceholder")}
               icon={<Mail size={20} />}
               autoComplete="email"
               value={field.state.value}
               onBlur={field.handleBlur}
               onChange={(e) => field.handleChange(e.target.value)}
-              error={getFieldError(field)}
+              error={getFieldError(field, tValidation)}
             />
           )}
         </form.Field>
@@ -68,14 +66,14 @@ export function LoginForm() {
               id="password"
               name="password"
               type="password"
-              label="Parola"
-              placeholder="Parolanız"
+              label={t("passwordLabel")}
+              placeholder={t("passwordPlaceholder")}
               icon={<LockKeyhole size={20} />}
               autoComplete="current-password"
               value={field.state.value}
               onBlur={field.handleBlur}
               onChange={(e) => field.handleChange(e.target.value)}
-              error={getFieldError(field)}
+              error={getFieldError(field, tValidation)}
             />
           )}
         </form.Field>
@@ -85,7 +83,7 @@ export function LoginForm() {
             href="/forgot-password"
             className="rounded-sm px-1 py-1 text-sm font-medium text-primary-dark transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30"
           >
-            Şifremi Unuttum?
+            {t("forgotPassword")}
           </Link>
         </div>
 
@@ -96,7 +94,7 @@ export function LoginForm() {
               disabled={!canSubmit || isSubmitting}
               className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary py-3.5 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {isSubmitting ? "Giriş yapılıyor..." : "Giriş Yap"}
+              {isSubmitting ? t("loginLoading") : t("loginButton")}
               {!isSubmitting && <span aria-hidden="true">&rarr;</span>}
             </button>
           )}
@@ -104,12 +102,12 @@ export function LoginForm() {
       </form>
 
       <p className="text-center text-sm text-muted-foreground">
-        Henüz üye değil misiniz?{" "}
+        {t("noAccount")}{" "}
         <Link
           href="/register"
           className="rounded-sm px-1 py-0.5 font-semibold text-primary-dark transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30"
         >
-          Kaydolun
+          {t("register")}
         </Link>
       </p>
     </div>

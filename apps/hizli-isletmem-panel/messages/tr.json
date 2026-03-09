@@ -1,0 +1,40 @@
+{
+  "common": {
+    "appName": "Hızlı İşletmem",
+    "appSlogan": "Verimlilik İşinizi Büyütün"
+  },
+  "auth": {
+    "loginTitle": "Giriş Yap",
+    "loginSubtitle": "Lütfen hesap bilgilerinizi girerek devam edin.",
+    "emailLabel": "E-posta",
+    "emailPlaceholder": "E-posta Adresiniz",
+    "passwordLabel": "Parola",
+    "passwordPlaceholder": "Parolanız",
+    "loginButton": "Giriş Yap",
+    "loginLoading": "Giriş yapılıyor...",
+    "forgotPassword": "Şifremi Unuttum?",
+    "noAccount": "Henüz üye değil misiniz?",
+    "register": "Kaydolun"
+  },
+  "footer": {
+    "help": "Yardım",
+    "privacy": "Politika",
+    "copyright": "© 2026 Hızlı İşletmem Teknolojileri. Tüm hakları saklıdır."
+  },
+  "errors": {
+    "EMAIL_ALREADY_EXISTS": "Bu e-posta adresi zaten kayıtlı.",
+    "INVALID_CREDENTIALS": "E-posta veya parola hatalı.",
+    "USER_DEACTIVATED": "Bu hesap devre dışı bırakılmıştır.",
+    "TOKEN_EXPIRED": "Oturum süreniz doldu. Lütfen tekrar giriş yapın.",
+    "TOKEN_INVALID": "Geçersiz oturum. Lütfen tekrar giriş yapın.",
+    "VALIDATION_ERROR": "Girilen bilgilerde hata var.",
+    "INTERNAL_ERROR": "Beklenmeyen bir hata oluştu.",
+    "UNKNOWN_ERROR": "Bilinmeyen bir hata oluştu."
+  },
+  "validation": {
+    "required": "Bu alan zorunludur.",
+    "email": "Geçerli bir e-posta adresi girin.",
+    "tooSmall": "Bu alan en az {minimum} karakter olmalıdır.",
+    "tooBig": "Bu alan en fazla {maximum} karakter olmalıdır."
+  }
+}

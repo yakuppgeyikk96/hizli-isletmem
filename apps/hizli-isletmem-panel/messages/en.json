@@ -1,0 +1,40 @@
+{
+  "common": {
+    "appName": "Hızlı İşletmem",
+    "appSlogan": "Grow Your Business with Efficiency"
+  },
+  "auth": {
+    "loginTitle": "Sign In",
+    "loginSubtitle": "Please enter your credentials to continue.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Your Email Address",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Your Password",
+    "loginButton": "Sign In",
+    "loginLoading": "Signing in...",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "register": "Sign Up"
+  },
+  "footer": {
+    "help": "Help",
+    "privacy": "Privacy",
+    "copyright": "© 2026 Hızlı İşletmem Technologies. All rights reserved."
+  },
+  "errors": {
+    "EMAIL_ALREADY_EXISTS": "A user with this email already exists.",
+    "INVALID_CREDENTIALS": "Invalid email or password.",
+    "USER_DEACTIVATED": "This account has been deactivated.",
+    "TOKEN_EXPIRED": "Your session has expired. Please sign in again.",
+    "TOKEN_INVALID": "Invalid session. Please sign in again.",
+    "VALIDATION_ERROR": "There are errors in the submitted data.",
+    "INTERNAL_ERROR": "An unexpected error occurred.",
+    "UNKNOWN_ERROR": "An unknown error occurred."
+  },
+  "validation": {
+    "required": "This field is required.",
+    "email": "Please enter a valid email address.",
+    "tooSmall": "This field must be at least {minimum} characters.",
+    "tooBig": "This field must be at most {maximum} characters."
+  }
+}
