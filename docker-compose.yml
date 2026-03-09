@@ -34,5 +34,18 @@ services:
     ports:
       - "${API_PORT}:3001"
 
+  panel:
+    build:
+      context: .
+      dockerfile: apps/hizli-isletmem-panel/Dockerfile
+    container_name: hizli-isletmem-panel
+    restart: unless-stopped
+    depends_on:
+      - api
+    environment:
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+
 volumes:
   postgres_data:
