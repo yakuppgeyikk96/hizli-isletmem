@@ -6,6 +6,7 @@ import { loginInputSchema } from "@repo/shared/schemas/auth";
 import { Mail, LockKeyhole } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { TextInput } from "@/components/ui/text-input";
+import { Button } from "@/components/ui/button";
 import { getFieldError } from "@/lib/translate-zod-error";
 
 export function LoginForm() {
@@ -89,14 +90,10 @@ export function LoginForm() {
 
         <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting] as const}>
           {([canSubmit, isSubmitting]) => (
-            <button
-              type="submit"
-              disabled={!canSubmit || isSubmitting}
-              className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary py-3.5 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
-            >
+            <Button type="submit" disabled={!canSubmit || isSubmitting}>
               {isSubmitting ? t("loginLoading") : t("loginButton")}
               {!isSubmitting && <span aria-hidden="true">&rarr;</span>}
-            </button>
+            </Button>
           )}
         </form.Subscribe>
       </form>
