@@ -1,18 +1,24 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useForm } from "@tanstack/react-form";
 import { registerInputSchema } from "@repo/shared/schemas/auth";
 import { Mail, LockKeyhole, User, Store, Tag } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { TextInput } from "@/components/ui/text-input";
 import { SelectInput } from "@/components/ui/select-input";
 import { Button } from "@/components/ui/button";
+import { Alert } from "@/components/ui/alert";
 import { getFieldError } from "@/lib/translate-zod-error";
+import { registerAction } from "@/lib/actions/auth";
 
 export function RegisterForm() {
   const t = useTranslations("auth");
   const tValidation = useTranslations("validation");
+  const tErrors = useTranslations("errors");
+  const router = useRouter();
+  const [formError, setFormError] = useState<string | null>(null);
 
   const form = useForm({
     defaultValues: {
@@ -26,7 +32,16 @@ export function RegisterForm() {
       onBlur: registerInputSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log("Register:", value);
+      setFormError(null);
+      const result = await registerAction(value);
+
+      if (!result.success) {
+        const errorCode = result.error.code;
+        setFormError(tErrors.has(errorCode) ? tErrors(errorCode) : tErrors("UNKNOWN_ERROR"));
+        return;
+      }
+
+      router.push("/");
     },
   });
 
@@ -146,6 +161,12 @@ export function RegisterForm() {
             />
           )}
         </form.Field>
+
+        {formError && (
+          <Alert variant="error" onDismiss={() => setFormError(null)}>
+            {formError}
+          </Alert>
+        )}
 
         <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting] as const}>
           {([canSubmit, isSubmitting]) => (

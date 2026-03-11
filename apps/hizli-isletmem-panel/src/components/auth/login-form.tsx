@@ -1,17 +1,23 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useForm } from "@tanstack/react-form";
 import { loginInputSchema } from "@repo/shared/schemas/auth";
 import { Mail, LockKeyhole } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { TextInput } from "@/components/ui/text-input";
 import { Button } from "@/components/ui/button";
+import { Alert } from "@/components/ui/alert";
 import { getFieldError } from "@/lib/translate-zod-error";
+import { loginAction } from "@/lib/actions/auth";
 
 export function LoginForm() {
   const t = useTranslations("auth");
   const tValidation = useTranslations("validation");
+  const tErrors = useTranslations("errors");
+  const router = useRouter();
+  const [formError, setFormError] = useState<string | null>(null);
 
   const form = useForm({
     defaultValues: {
@@ -22,7 +28,16 @@ export function LoginForm() {
       onBlur: loginInputSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log("Login:", value);
+      setFormError(null);
+      const result = await loginAction(value);
+
+      if (!result.success) {
+        const errorCode = result.error.code;
+        setFormError(tErrors.has(errorCode) ? tErrors(errorCode) : tErrors("UNKNOWN_ERROR"));
+        return;
+      }
+
+      router.push("/");
     },
   });
 
@@ -87,6 +102,12 @@ export function LoginForm() {
             {t("forgotPassword")}
           </Link>
         </div>
+
+        {formError && (
+          <Alert variant="error" onDismiss={() => setFormError(null)}>
+            {formError}
+          </Alert>
+        )}
 
         <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting] as const}>
           {([canSubmit, isSubmitting]) => (
