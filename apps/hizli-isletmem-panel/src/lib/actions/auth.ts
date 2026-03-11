@@ -20,6 +20,24 @@ export async function registerAction(
   return authenticateWithApi("/api/v1/auth/register", input);
 }
 
+export async function logoutAction(): Promise<void> {
+  const cookieStore = await cookies();
+  const refreshToken = cookieStore.get("refreshToken")?.value;
+
+  await fetch(`${API_BASE_URL}/api/v1/auth/logout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(refreshToken ? { Cookie: `refreshToken=${refreshToken}` } : {}),
+    },
+  }).catch(() => {
+    // Best-effort logout: ignore network errors
+  });
+
+  cookieStore.delete("accessToken");
+  cookieStore.delete("refreshToken");
+}
+
 async function authenticateWithApi(
   path: string,
   body: LoginInput | RegisterInput,
