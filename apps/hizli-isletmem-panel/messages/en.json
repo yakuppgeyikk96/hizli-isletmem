@@ -53,5 +53,10 @@
     "email": "Please enter a valid email address.",
     "tooSmall": "This field must be at least {minimum} characters.",
     "tooBig": "This field must be at most {maximum} characters."
+  },
+  "dashboard": {
+    "notifications": "Notifications",
+    "logout": "Log Out",
+    "loggingOut": "Logging out..."
   }
 }

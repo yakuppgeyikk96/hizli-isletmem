@@ -53,5 +53,10 @@
     "email": "Geçerli bir e-posta adresi girin.",
     "tooSmall": "Bu alan en az {minimum} karakter olmalıdır.",
     "tooBig": "Bu alan en fazla {maximum} karakter olmalıdır."
+  },
+  "dashboard": {
+    "notifications": "Bildirimler",
+    "logout": "Çıkış Yap",
+    "loggingOut": "Çıkış yapılıyor..."
   }
 }
